@@ -15,16 +15,16 @@ from thrift.protocol import TBinaryProtocol
 
 app = Flask(__name__)
 
-#localhost and port
 '''
+#localhost and port
 host = "localhost"
 learning_port = 5678
-email_port = 5678 #has no access to email service locally
+email_port = 11111 #has no access to email service locally
 '''
 # real host and port
 host = "50.17.210.180"
 learning_port = 5001
-email_port = 5000
+email_port = 5567 #fake port number. should fail
 
 
 ############################# Calls ################################
@@ -34,6 +34,7 @@ email_port = 5000
 def check_learning_service():
   try:
     transport = TSocket.TSocket(host, learning_port)
+    transport.setTimeout(3000)
     transport = TTransport.TBufferedTransport(transport)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
     client = HealthCheckService.Client(protocol)
@@ -50,6 +51,7 @@ def check_learning_service():
 def check_email_service():
   try:
     transport = TSocket.TSocket(host, email_port)
+    transport.setTimeout(3000)
     transport = TTransport.TBufferedTransport(transport)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
     client = HealthCheckService.Client(protocol)

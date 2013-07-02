@@ -8,7 +8,7 @@ $(window).load(function() {
 });
 
 function check_learning() {
-  $.ajax({url: "/check_learning_service", timeout: 6000, statusCode: {
+  $.ajax({url: "/check_learning_service", statusCode: {
     200: function(data) {
       console.log($.parseJSON(data));
       var data = $.parseJSON(data);
@@ -27,12 +27,11 @@ function check_learning() {
       $("#learning_server_status").html("No..... status code 500");
       $("#learning_box").removeClass("success");
       $("#learning_box").addClass("fail");
-    },
   }});
 }
 
 function check_email() {
-  $.ajax({url: "/check_email_service", timeout: 6000, statusCode: {
+  $.ajax({url: "/check_email_service", statusCode: {
     200: function(data) {
       console.log($.parseJSON(data));
       var data = $.parseJSON(data);
