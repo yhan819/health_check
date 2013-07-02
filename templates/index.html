@@ -2,22 +2,34 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <title>Server Healthcheck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="../static/js/lib/jquery-1.10.1.min.js"></script>
   <script src="../static/js/app.js"></script>
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="../static/css/style.css" rel="stylesheet"/>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <div id="title">
-    <h1>Is the server running?????</h1>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="#">Server Check</a>
+        <a class="brand" style="float:right;" href="http://kavaanu-dashboard.herokuapp.com/default">Go to Dashboard</a>
+      </div>
+    </div>
   </div>
-  <div id="learning_box">
-    <h2>learning server?</h2>
-    <div id="learning_server_status"></div>
-  </div>
-  <div id="email_box">
-    <h2>email service?</h2>
-    <div id="email_server_status"></div>
+  <div class="container body">
+    <h1 class="title">Is the server running?????</h1>
+    <div class="row">
+      <div class="span5" id="learning_box">
+        <h3>learning server?</h3>
+        <div id="learning_server_status"></div>
+      </div>
+      <div class="span5 offset1" id="email_box">
+        <h3>email server?</h3>
+        <div id="email_server_status"></div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
