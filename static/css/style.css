@@ -1,0 +1,34 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h2 {
+  margin: 10px;
+}
+
+#title {
+  text-align: center;
+  padding: 15px;
+}
+
+#learning_box {
+  width: 400px;
+  text-align: center;
+  padding: 20px;
+  float: left;
+}
+
+#email_box {
+  width: 400px;
+  text-align: center;
+  padding: 20px;
+  margin-left: 450px;
+}
+
+.success {
+  background-color: rgb(150, 191, 72);
+}
+
+.fail {
+  background-color: rgb(220, 40, 70);
+}

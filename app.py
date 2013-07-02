@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import json
+import time
 
 import sys
 sys.path.append('gen_py')
@@ -14,15 +15,51 @@ from thrift.protocol import TBinaryProtocol
 
 app = Flask(__name__)
 
+#localhost and port
+'''
+host = "localhost"
+learning_port = 5678
+email_port = 5678 #has no access to email service locally
+'''
+# real host and port
+host = "50.17.210.180"
+learning_port = 5001
+email_port = 5000
+
+
 ############################# Calls ################################
 
 
-@app.route('/test')
-def test():
+@app.route('/check_learning_service')
+def check_learning_service():
+  try:
+    transport = TSocket.TSocket(host, learning_port)
+    transport = TTransport.TBufferedTransport(transport)
+    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+    client = HealthCheckService.Client(protocol)
+    transport.open()
+  except:
+    print "cannot connect to the learning service"
   client.healthCheck()
-  return json.dumps({"message":"testing"})
+  transport.close()
+  t = time.time()
+  return json.dumps({"message":"learning service is up", "timestamp":t})
 
 
+@app.route('/check_email_service')
+def check_email_service():
+  try:
+    transport = TSocket.TSocket(host, email_port)
+    transport = TTransport.TBufferedTransport(transport)
+    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+    client = HealthCheckService.Client(protocol)
+    transport.open()
+  except:
+    print "cannot connect to the email service"
+  client.healthCheck()
+  transport.close()
+  t = time.time()
+  return json.dumps({"message": "email service is up", "timestamp":t})
 
 
 ########################### running the app ########################
@@ -32,17 +69,4 @@ def hello():
   return render_template('index.html')
 
 if __name__ == "__main__":
-  local = "localhost"
-  local_port = "5678"
-  real_host = "50.17.210.180"
-  real_port = "5001"
-  try:
-    transport = TSocket.TSocket(real_host, real_port)
-    transport = TTransport.TBufferedTransport(transport)
-    protocol = TBinaryProtocol.TBinaryProtocol(transport)
-    client = HealthCheckService.Client(protocol)
-    transport.open()
-    app.run()
-    transport.close()
-  except:
-    print "one of the server is not running"
+  app.run()
