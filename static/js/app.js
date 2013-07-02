@@ -27,6 +27,7 @@ function check_learning() {
       $("#learning_server_status").html("No..... status code 500");
       $("#learning_box").removeClass("success");
       $("#learning_box").addClass("fail");
+    }
   }});
 }
 
